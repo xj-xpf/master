@@ -1,0 +1,72 @@
+<include file="Public/header"/>
+<body>      
+<div id="tbh5v0">
+<div class="user_com">
+<include file="Public/uer_topnav"/>
+
+<div class="Wallet">
+	<ul>
+	<li class="bain1 sell_cost"><strong>￥{$sales_volume}元</strong><span>销售额</span></li>
+	<li class="sell_cost"><strong>￥{$reward}元</strong><span>我的奖励</span></li>
+	</ul>
+	
+</div>
+
+<div class="Wallet">
+	<div class="ss_million">
+		<a class="dj_mill"><em class="Icon j_million"></em><dl class="b"><dt>{$lnshop_config['distribut_name']}</dt><dd><span class="million_num">{$lower_count[1]+$lower_count[2]}人</span></dd></dl></a>
+        <div class="show_million">
+            <a href="{:U('Distribut/lower_list',array('level'=>1))}"><em class="Icon"></em><dl class="b"><dt>{$lnshop_config['distribut_first_name']}</dt><dd style="color:#aaaaaa;"><span>{$lower_count[1]}人</span></dd></dl></a>
+            <a href="{:U('Distribut/lower_list',array('level'=>2))}"><em class="Icon"></em><dl class="b"><dt>{$lnshop_config['distribut_second_name']}</dt><dd style="color:#aaaaaa;"><span>{$lower_count[2]}人</span></dd></dl></a>
+        </div>
+    </div>
+    <div class="ss_million">
+		<a class="dj_mill">
+              <em class="Icon j_million"></em>
+              <dl class="b">
+                  <dt>我的推广</dt>
+                  <dd>
+                      <span class="million_num">
+	                      {$level_order[0]['c']+$level_order[1]['c']+$level_order[2]['c']+$level_order[3]['c']+$level_order[4]['c']}单
+                          （￥{$level_order[0]['goods_price']+$level_order[1]['goods_price']+$level_order[2]['goods_price']+$level_order[3]['goods_price']}）
+                      </span>
+                  </dd>
+              </dl>
+        </a>
+        <div class="show_million">
+            <a href="{:U('Distribut/order_list',array('status'=>'0'))}"><em class="Icon"></em><dl class="b"><dt>下单未购买</dt><dd style="color:#aaaaaa;"><span>{$level_order[0]['c']+$level_order[4]['c']}单（￥{$level_order[1]['goods_price']+$level_order[2]['goods_price']}）</span></dd></dl></a>
+            <a href="{:U('Distribut/order_list',array('status'=>'1,2,3'))}"><em class="Icon"></em><dl class="b"><dt>下单已购买</dt><dd style="color:#aaaaaa;"><span>{$level_order[1]['c']+$level_order[2]['c']+$level_order[3]['c']}单（￥{$level_order[1]['goods_price']+$level_order[2]['goods_price']+$level_order[3]['goods_price']}）</span></dd></dl></a>
+        </div>
+    </div> 
+    <div class="ss_million">
+		<a class="dj_mill"><em class="Icon j_million"></em><dl class="b"><dt>我的财富</dt><dd><span class="million_num">￥{$level_order[0]['goods_price']+$level_order[1]['goods_price']+$level_order[2]['goods_price']+$level_order[3]['goods_price']}</span></dd></dl></a>
+        <div class="show_million">
+            <a href="{:U('Distribut/order_list',array('status'=>'0'))}"><em class="Icon"></em><dl class="b"><dt>未付款订单财富</dt><dd style="color:#aaaaaa;"><span>￥{$level_order[0]['goods_price']}</span></dd></dl></a>
+            <a href="{:U('Distribut/order_list',array('status'=>'1'))}"><em class="Icon"></em><dl class="b"><dt>已付款订单财富</dt><dd style="color:#aaaaaa;"><span>￥{$level_order[1]['goods_price']}</span></dd></dl></a>
+            <a href="{:U('Distribut/order_list',array('status'=>'2'))}"><em class="Icon"></em><dl class="b"><dt>已收货订单财富</dt><dd style="color:#aaaaaa;"><span>￥{$level_order[2]['goods_price']}</span></dd></dl></a>
+            <a href="{:U('Distribut/order_list',array('status'=>'3'))}"><em class="Icon"></em><dl class="b"><dt>已分成订单财富</dt><dd style="color:#aaaaaa;"><span>￥{$level_order[3]['goods_price']}</span></dd></dl></a>
+            <a href="javascript:void(0);"><em class="Icon"></em><dl class="b"><dt>已提现财富</dt><dd style="color:#aaaaaa;"><span>￥{$withdrawals_money|default="0"}</span></dd></dl></a>
+            <a href="javascript:void(0);"><em class="Icon"></em><dl class="b"><dt>可提现财富</dt><dd style="color:#aaaaaa;"><span>￥{$user['user_money']|default="0"}</span></dd></dl></a>
+        </div>
+    </div>
+    <div>
+                <a href="{:U('Distribut/qr_code')}"><em class="Icon j_million"></em><dl class="b"><dt>我的推广二维码</dt><dd>&nbsp;</dd></dl></a>
+    </div>
+</div>
+
+
+</div>
+<include file="Public/footer"/>
+</div>
+<include file="Public/footer_nav"/>
+</body>
+	<script type="text/javascript">
+	
+    	$(document).ready(function() { 
+			    // 收缩展开节点
+				$('.dj_mill').click(function(){
+					 $(this).siblings('.show_million').toggle(300);
+				});
+        });
+    </script>
+</html>

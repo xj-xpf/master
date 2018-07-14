@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>个人信息-{$lnshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$lnshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$lnshop_config['shop_info_store_desc']}" />
+    <link rel="stylesheet" href="__STATIC__/css/index.css" type="text/css">
+    <script src="__STATIC__/js/jquery-1.10.2.min.js"></script>
+    <script src="__STATIC__/js/slider.js"></script>
+
+</head>
+
+<body>
+<!--------头部开始-------------->
+<include file="Public/header" />
+<!--------头部结束-------------->
+
+<div class="layout ov-hi">
+    <div class="breadcrumb-area">
+        <foreach name="navigate_user" key="k" item="v">
+            <if condition="$k neq '首页'"> > </if>
+            <a href="{$v}">{$k}</a>
+        </foreach>
+    </div>
+</div>
+
+<div class="layout pa-to-10 fo-fa-ar">
+    <!--菜单-->
+    <include file="User/menu" />
+
+    <div class="fr wi940">
+        <div class="myhome-welcome pa-to-20">
+
+            <if condition="$ShareLink neq null">
+                <div class="he50 wddd">
+                    <div class="fl ddd-h2">
+                        <h2><span>我的推广二维码</span></h2>
+                    </div>
+                </div>
+                <div class="Wallet" style="text-align:center;">
+                      <img alt="扫码推广" src="{$ShareLink}" style="width:150px;height:150px;"/>
+                </div>
+            <else />
+                <div class="endorse_hend">
+                    <p>你还不是分销商</p>
+                </div>
+              </if>
+        </div>
+    </div>
+</div>
+
+<include file="Public/footer"/>
+<include file="Public/footer_nav"/>
+</body>
+</html>

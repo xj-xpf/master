@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>个人信息-{$lnshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$lnshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$lnshop_config['shop_info_store_desc']}" />
+    <link rel="stylesheet" href="__STATIC__/css/index.css" type="text/css">
+    <script src="__STATIC__/js/jquery-1.10.2.min.js"></script>
+    <script src="__STATIC__/js/slider.js"></script>
+
+</head>
+
+<body>
+<!--------头部开始-------------->
+<include file="Public/header" />
+<!--------头部结束-------------->
+
+<div class="layout ov-hi">
+    <div class="breadcrumb-area">
+        <foreach name="navigate_user" key="k" item="v">
+            <if condition="$k neq '首页'"> > </if>
+            <a href="{$v}">{$k}</a>
+        </foreach>
+    </div>
+</div>
+
+
+<div class="layout pa-to-10 fo-fa-ar">
+    <!--菜单-->
+    <include file="User/menu" />
+
+    <div class="fr wi940">
+
+        <div class="he50 wddd ma-to-50">
+            <div class="fl ddd-h2">
+                <h2><span>账户记录</span></h2>
+            </div>
+            <div class="fr">
+                <div class="po-re zjs">
+                    <ul>
+                        <li id="q-s" class="fl cullent"><a href="{:U('Home/User/account')}"><span>全部记录</span></a></li>
+                        <!--<li id="h-s" class="fl"><a href="{:U('Home/User/account',array('type'=>1))}"><span>收入记录</span></a></li>-->
+                        <!--<li id="j-s" class="fl"><a href="{:U('Home/User/account',array('type'=>2))}"><span>支出记录</span></a></li>-->
+                    </ul>
+                    <div class="ec-ta-x wi82" style="left:0"></div>
+                </div>
+            </div>
+        </div>
+        <div class="wddd-js ov-in">
+            <div class="list-group-title">
+                <table class="merge-tab" border="0" cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <!--<th class="col-pro">日期</th>-->
+                        <th class="wi230">昵称</th>
+                        <th class="wi230">电话</th>
+                        <th class="wi230">加盟时间</th>
+                        <th class="col-operate wi230">会员ID</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="merge-list">
+                <div class="ma-0--1">
+                    <div class="o-pro">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <volist name="list" id="v">
+                                <tr>
+                                    <!--<td class=""><span>类型</span></td>-->
+                                    <td class="wi230">{$v['nickname']}</td>
+                                    <td class="wi230">
+                                        {$v['mobile']|default="--"}
+                                    </td>
+                                    <td class="wi230">
+                                        {$v['reg_time']|date="Y-m-d",###}
+                                    </td>
+                                    <td class="wi230">
+                                        {$v['user_id']}
+                                    </td>
+                                </tr>
+                            </volist>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div>
+                {$page}
+            </div>
+        </div>
+
+
+
+
+        <div class="myhome-welcome pa-to-20">
+
+
+            <foreach name="list" item="v" >
+                <div class="endorse_num">
+                    <div class="hend_endor">
+                        <img src="{$v['head_pic']|default=" __STATIC__/images/user68.jpg"}" width="60" height="60">
+                    </div>
+                    <div class="sec_endor">
+                        <p>昵称：<span>{$v['nickname']}</span></p>
+                        <p>电话：<span>{$v['mobile']|default="--"}</span></p>
+                        <p>加盟时间：<span>{$v['reg_time']|date="Y-m-d",###}</span></p>
+                        <p>会员ID：<span>{$v['user_id']}</span></p>
+                    </div>
+                    <!--
+                    <div class="stay_endor">
+                        <a href="">留言</a>
+                    </div>
+                    -->
+                </div>
+            </foreach>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
