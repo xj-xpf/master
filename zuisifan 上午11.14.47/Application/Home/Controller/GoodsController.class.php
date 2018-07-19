@@ -23,7 +23,6 @@ class GoodsController extends BaseController {
         C('TOKEN_ON',true);
         $goodsLogic = new GoodsLogic();
         $goods_id = I("get.id");
-
         $goods = M('Goods')->where("goods_id = $goods_id")->find();
         if(empty($goods) || ($goods['is_on_sale'] == 0)){
         	$this->error('该商品已经下架',U('Index/index'));
@@ -41,15 +40,15 @@ class GoodsController extends BaseController {
         $goods_images_list = M('GoodsImages')->where("goods_id = $goods_id")->select(); // 商品 图册
         $goods_attribute = M('GoodsAttribute')->getField('attr_id,attr_name'); // 查询属性
         $goods_attr_list = M('GoodsAttr')->where("goods_id = $goods_id")->select(); // 查询商品属性表
-		$filter_spec = $goodsLogic->get_spec($goods_id);
-
-        /*//商品是否正在限时抢购促销中
+        $filter_spec = $goodsLogic->get_spec($goods_id);
+        //商品是否正在限时抢购促销中
         if($goods['prom_type'] == 1)
         {
             $goods['flash_sale'] = get_goods_promotion($goods['goods_id']);
+            var_dump($goods['flash_sale']);
             $flash_sale = M('flash_sale')->where("id = {$goods['prom_id']}")->find();
             $this->assign('flash_sale',$flash_sale);
-        }*/
+        }
 
         if($goods['prom_type'] == 3){
             $goods['promotion'] = get_goods_promotion($goods['goods_id']);
@@ -97,8 +96,8 @@ class GoodsController extends BaseController {
         $this->assign('recommened_goods', $recommened_goods);
         $this->assign('after_sale', $after_sale);
         $this->assign('config_money', $shipping_config['money']);
-        //$str = $goodsLogic->getSpecInput($goods_id, $filter_spec);
-        //$this->assign('str', $str);
+//        $str = $goodsLogic->getSpecInput($goods_id, $filter_spec);
+//        $this->assign('str', $str);
         $this->display();
     }
 

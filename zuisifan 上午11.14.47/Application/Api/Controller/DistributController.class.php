@@ -30,7 +30,7 @@ class DistributController extends BaseController {
         $result['money'] = $result['money'] ? $result['money'] : 0;
 
         $lower_count[] = $lower_count_one = M('users')->where("first_leader = {$this->user_id}")->count();
-        $lower_count[] = $lower_count_two = M('users')->where("second_leader = {$this->user_id}")->count();
+//        $lower_count[] = $lower_count_two = M('users')->where("second_leader = {$this->user_id}")->count();
         //三级分销改二级
         //$lower_count[] = $lower_count_three = M('users')->where("third_leader = {$this->user_id}")->count();
 
@@ -55,7 +55,7 @@ class DistributController extends BaseController {
 
         $distributInfo['lower_count'] = $lower_count; // 下线人数
         $distributInfo['lower_count_one'] = $lower_count_one;
-        $distributInfo['lower_count_two'] = $lower_count_two;
+//        $distributInfo['lower_count_two'] = $lower_count_two;
         //$distributInfo['lower_count_three'] = $lower_count_three;
 
         $distributInfo['sales_volume'] = $level_order[0]['goods_price'] + $level_order[1]['goods_price'] + $level_order[2]['goods_price'] + $level_order[3]['goods_price']; // 销售额
@@ -103,8 +103,8 @@ class DistributController extends BaseController {
         $p = I('p', 1, 'intval');
         //三级分销改二级
         //$condition = array(1=>'first_leader',2=>'second_leader',3=>'third_leader');
-        $condition = array(1=>'first_leader',2=>'second_leader');
-
+//        $condition = array(1=>'first_leader',2=>'second_leader');
+        $condition = array(1=>'first_leader');
         $where = "{$condition[$level]} = {$this->user_id}";
         $q && $where .= " and (nickname like '%$q%' or user_id = '$q' or mobile = '$q')";
 
@@ -112,7 +112,8 @@ class DistributController extends BaseController {
 
         $list = M('users')
             //->field('user_id, email, sex, mobile, head_pic, nickname, level, first_leader, second_leader, third_leader, reg_time')
-            ->field('user_id, email, sex, mobile, head_pic, nickname, level, first_leader, second_leader, reg_time')
+            //->field('user_id, email, sex, mobile, head_pic, nickname, level, first_leader, second_leader, reg_time')
+            ->field('user_id, email, sex, mobile, head_pic, nickname, level, first_leader,  reg_time')
             ->where($where)->page($p,10)
             ->order('user_id desc')
             ->select();

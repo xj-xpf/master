@@ -5,68 +5,59 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="navbar navbar-default">
-                <div class="navbar-form">
-                    <div class="pull-right">
-                        <a data-original-title="返回" class="btn btn-default" title="" data-toggle="tooltip" href="javascript:history.go(-1)"><i class="fa fa-reply"></i></a>
-                    </div>
-                </div>
-            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-list"></i> 收货地址列表</h3>
                 </div>
-
-
+                <div class="navbar navbar-default">
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form form-inline" action="{:U('User/addressList')}" method="post">
+                            <div class="form-group">
+                                <input type="text" name="consignee" class="form-control" placeholder="收货人" value='{$consignee}'>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="mobile" class="form-control" placeholder="手机号码" value="{$mobile}">
+                            </div>
+                            <button type="submit" class="btn btn-primary" data-toggle='tooltip'data-original-title="查询">查询</button>
+                            <a href="javascript:;" data-url="{:U('User/right_del')}" onclick="delAll(this,'right')" class="btn btn-primary">批量删除</a>
+                        </form>
+                    </div>
+                </div>
                 <div class="panel-body">
-
-
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-
-                                <td class="text-left">
-                                    收货人
-                                </td>
-
-
-                                <td class="text-left">
-                                    联系方式
-                                </td>
-
-                                <td class="text-left">
-                                    邮政编码
-                                </td>
-
-                                <td class="text-left">
-                                地址
-                                 </td>
-
-
-
+                                <td class="text-left"><input type="checkbox" onclick="choosebox(this)">全选</td>
+                                <td class="text-center">ID</td>
+                                <td class="text-center" style='width: 10%'>收货人</td>
+                                <td class="text-center">联系方式</td>
+                                <td class="text-center">邮政编码</td>
+                                <td class="text-center" style='width: 40%'>地址</td>
+                                <td class="text-center">操作</td>
                             </tr>
                             </thead>
                             <tbody>
                             <volist name="lists" id="list">
                                 <tr>
+                                    <td><input type="checkbox" name="right[]" value="{$list.address_id}"></td>
+                                    <td class="text-left">{$list.address_id}</td>
                                     <td class="text-left">{$list.consignee}</td>
-
                                     <td class="text-left">{$list.mobile}</td>
-                                    <td class="text-left">
-                                        {$list.zipcode}
+                                    <td class="text-left">{$list.zipcode}</td>
+                                    <td class="text-left">{$regionList[$list[province]]},{$regionList[$list[city]]},{$regionList[$list[district]]},{$list.address}</td>
+                                    <td class="text-right">
+                                        <a href="{:U('Admin/User/addressEdit',array('id'=>$list['user_id']))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="编辑" ><i class="fa fa-pencil" title="编辑"></i></a>
+                                        <a href="{:U('Admin/User/address_del',array('id'=>$list['user_id']))}" id="button-delete6" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="删除" ><i class="fa fa-trash-o" title="删除"></i></a>
                                     </td>
-                                    <td class="text-left">
-                                        {$regionList[$list[province]]},{$regionList[$list[city]]},{$regionList[$list[district]]},{$list.address}
-                                    </td>
-
                                 </tr>
                             </volist>
                             </tbody>
                         </table>
+                        <div class="pull-right">
+                            {$page}
+                        </div>
                     </div>
-
-
                 </div>
             </div>
         </div>        <!-- /.row -->
@@ -102,6 +93,16 @@
         var v = $("input[name='sort']").val() == 'desc' ? 'asc' : 'desc';
         $("input[name='sort']").val(v);
         ajax_get_table('search-form2',cur_page);
+    }
+
+    //批量删除
+    function choosebox(o){
+        var vt = $(o).is(':checked');
+        if(vt){
+            $('input[type=checkbox]').prop('checked',vt);
+        }else{
+            $('input[type=checkbox]').removeAttr('checked');
+        }
     }
 </script>
 </body>

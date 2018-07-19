@@ -14,7 +14,8 @@ class UserController extends BaseController {
 	public $user_id = 0;
 	public $user = array();
 	
-    public function _initialize() {      
+    public function _initialize() {
+
         parent::_initialize();
         if(session('?user'))
         {
@@ -57,6 +58,7 @@ class UserController extends BaseController {
 
 
     public function logout(){
+
     	setcookie('uname','',time()-3600,'/');
     	setcookie('cn','',time()-3600,'/');
     	setcookie('user_id','',time()-3600,'/');
@@ -100,10 +102,12 @@ class UserController extends BaseController {
      */
     public function login(){
         if($this->user_id > 0){
+
         	header("Location: ".U('Home/User/index'));
         }           
         $referurl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : U("Home/User/index");
         $this->assign('referurl',$referurl);
+
         $this->display();
     }
 

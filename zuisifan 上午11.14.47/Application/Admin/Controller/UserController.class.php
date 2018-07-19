@@ -92,7 +92,13 @@ class UserController extends BaseController {
         $this->assign('user',$user);
         $this->display();
     }
-    
+
+
+    /*
+     *添加会员
+     * @author qinlu
+     * @date 2018.7.14
+     */
     public function add_user(){
     	if(IS_POST){
     		$data = I('post.');
@@ -118,6 +124,122 @@ class UserController extends BaseController {
         $this->assign('lists',$lists);
         $this->display();
     }
+
+    /**
+     * 所有的收货地址
+     */
+    public  function addressList(){
+        $consignee = I('consignee');
+        $mobile = I('mobile');
+        $map = array();
+        if($consignee){
+            $map['consignee'] = array('like',"%$consignee%");
+        }
+        if($mobile){
+            $map['mobile'] = array('like',"%$mobile%");
+        }
+        $count = M('user_address')->where($map)->count();
+        $page = new Page($count);
+        $lists  = M('user_address')->where($map)->limit($page->firstRow.','.$page->listRows)->select();
+        $regionList = M('Region')->getField('id,name');
+        $this->assign('regionList',$regionList);
+        $this->assign('page',$page->show());
+        $this->assign('lists',$lists);
+        $this->display('address');
+    }
+
+
+    /**
+     * 收货地址编辑
+     */
+    public function addressEdit(){
+        $uid = I('get.id',0);
+        if($uid){
+            $info = D('user_address')->where(array('user_id'=>$uid))->find();
+            $this->assign('info',$info);
+        }
+        // 获取省份
+        $province = M('region')->where(array('parent_id'=>0,'level'=>1))->select();
+        //获取城市
+        $city =  M('region')->where(array('parent_id'=>$info['province'],'level'=>2))->select();
+        //获取地区
+        $area =  M('region')->where(array('parent_id'=>$info['city'],'level'=>3))->select();
+        $this->assign('province',$province);
+        $this->assign('city',$city);
+        $this->assign('area',$area);
+        $this->display('address_edit');
+    }
+
+    /**
+     * 收货地址编辑后保存
+     */
+    public function addressEditDo(){
+        $user_id = I('user_id');
+        $address = array();
+        //  获取省份
+        $province = M('region')->where(array('parent_id'=>0,'level'=>1))->select();
+        //  获取城市
+        $city =  M('region')->where(array('parent_id'=>$address['province'],'level'=>2))->select();
+        //  获取地区
+        $area =  M('region')->where(array('parent_id'=>$address['city'],'level'=>3))->select();
+        if(IS_POST)
+        {
+            $address['user_id'] = I('user_id');// 用户id 可以为空
+            $address['consignee'] = I('consignee');// 收货人
+            $address['province'] = I('province'); // 省份
+            $address['city'] = I('city'); // 城市
+            $address['district'] = I('district'); // 县
+            $address['address'] = I('address'); // 收货地址
+            $address['mobile'] = I('mobile'); // 手机
+            $address['zipcode'] = I('zipcode');//邮箱
+            $address['address'] = I('address');//详细地址
+        }
+        $data = M('user_address')->where(array('user_id'=>$user_id))->save($address);
+        if ($data){
+            $this->success('编辑成功',U('User/addressList'));exit;
+        }else{
+            $this->error('编辑失败,',U('User/addressList'));
+        }
+        $this->assign('province',$province);
+        $this->assign('city',$city);
+        $this->assign('area',$area);
+        $this->display('address');
+    }
+
+
+    /**
+     * 删除收货地址
+     */
+    public function address_del(){
+        $uid = I('get.id');
+        $row = M('user_address')->where(array('user_id'=>$uid))->delete();
+        if($row){
+            $this->success('成功删除收货地址');
+        }else{
+            $this->error('操作失败');
+        }
+    }
+
+    /**
+     * 批量删除收货地址
+     */
+    public function right_del(){
+        $id = I('del_id');
+        if(is_array($id)){
+            $id = implode(',', $id);
+        }
+        if(!empty($id)){
+            $r = M('user_address')->where("address_id in ($id)")->delete();
+            if($r){
+                respose(1);
+            }else{
+                respose('删除失败');
+            }
+        }else{
+            respose('参数有误');
+        }
+    }
+
 
     /**
      * 删除会员
@@ -529,4 +651,5 @@ class UserController extends BaseController {
         C('TOKEN_ON',false);
         $this->display();
     }
+
 }

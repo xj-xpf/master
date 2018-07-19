@@ -43,7 +43,7 @@ class PromotionController extends BaseController {
 				$prom_list[] = $val;
 			}
 		}
-                $this->assign('page',$show);// 赋值分页输出
+		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('prom_list',$prom_list);
 		$this->display();
 	}
@@ -76,7 +76,6 @@ class PromotionController extends BaseController {
 		//促销时间调整 结束日期设为 结束日期当天 23:59:59
 		$data['end_time'] = $data['end_time'].' 23:59:59';
 		$data['end_time'] = strtotime($data['end_time']);
-
 		$data['group'] = implode(',', $data['group']);
 		if($prom_id){
 			M('prom_goods')->where("id=$prom_id")->save($data);
@@ -192,6 +191,10 @@ class PromotionController extends BaseController {
 		$this->success('删除活动成功',U('Promotion/prom_order_list'));
 	}
 
+
+    /**
+     * 团购列表
+     */
     public function group_buy_list(){
     	$Ad =  M('group_buy');
     	$count = $Ad->count();
@@ -210,6 +213,10 @@ class PromotionController extends BaseController {
     	$this->display();
     }
 
+
+    /**
+     * 团购编辑
+     */
     public function group_buy(){
     	$act = I('GET.act','add');
     	$groupbuy_id = I('get.id');
@@ -228,6 +235,10 @@ class PromotionController extends BaseController {
     	$this->display();
     }
 
+
+    /**
+     * 团购删除
+     */
     public function groupbuyHandle(){
     	$data = I('post.');
     	$data['groupbuy_intro'] = htmlspecialchars(stripslashes($_POST['groupbuy_intro']));

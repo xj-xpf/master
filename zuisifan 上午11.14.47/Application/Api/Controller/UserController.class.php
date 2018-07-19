@@ -29,10 +29,8 @@ class UserController extends BaseController {
         $password = I('password','');
         $unique_id = I("unique_id"); // 唯一id  类似于 pc 端的session id
         $data = $this->userLogic->app_login($username,$password);
-        
         if($data['status'] != 1)
-            exit(json_encode($data));        
-        
+            exit(json_encode($data));
         $cartLogic = new \Home\Logic\CartLogic();        
         $cartLogic->login_cart_handle($unique_id,$data['result']['user_id']); // 用户登录后 需要对购物车 一些操作               
         exit(json_encode($data));

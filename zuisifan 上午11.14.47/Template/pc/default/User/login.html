@@ -59,15 +59,14 @@
                 </div>
             </div>
         </form>
-        <span class="co666">使用合作账号登录：</span>
-        <lnshop sql="select * from __PREFIX__plugin where type='login' AND status = 1" item="v" key="k">
-            <if condition="$v['code'] eq 'qq'"><span><a class="hezuoz" href="{:U('LoginApi/login',array('oauth'=>'qq'))}"><i class="ba-po&#45;&#45;185"></i></a></span></if>
-            <if condition="$v['code'] eq 'weixin'"><span><a class="hezuoz" href="{:U('LoginApi/login',array('oauth'=>'weixin'))}"><i class="ba-po&#45;&#45;179-23"></i></a></span></if>
-            <if condition="$v['code'] eq 'alipay'"><span><a class="hezuoz" href="{:U('LoginApi/login',array('oauth'=>'alipay'))}"><i class="zhi-y-f"></i></a></span></if>
-        </lnshop>
-        <a class="fl" href="https://open.weixin.qq.com/connect/qrconnect?appid=wx5e56b5c8a0bfce5c&redirect_uri=http://shopv1.host3.xx.com/Home/Index/webchatLogin&response_type=code&scope=snsapi_login&state=#wechat_redirect" title="微信登录"  target="_blank">
-            <img src="__PUBLIC__/images/otherway2.png" alt="">
-        </a>
+        <!--<lnshop sql="select * from __PREFIX__plugin where type='login' AND status = 1" item="v" key="k">-->
+            <!--<if condition="$v['code'] eq 'qq'"><span><a class="hezuoz" href="{:U('LoginApi/login',array('oauth'=>'qq'))}"><i class="ba-po&#45;&#45;185"></i></a></span></if>-->
+            <!--<if condition="$v['code'] eq 'weixin'"><span><a class="hezuoz" href="{:U('LoginApi/login',array('oauth'=>'weixin'))}"><i class="ba-po&#45;&#45;179-23"></i></a></span></if>-->
+            <!--<if condition="$v['code'] eq 'alipay'"><span><a class="hezuoz" href="{:U('LoginApi/login',array('oauth'=>'alipay'))}"><i class="zhi-y-f"></i></a></span></if>-->
+        <!--</lnshop>-->
+        <!--<a class="fl" href="https://open.weixin.qq.com/connect/qrconnect?appid=wx5e56b5c8a0bfce5c&redirect_uri=http://shopv1.host3.xx.com/Home/Index/webchatLogin&response_type=code&scope=snsapi_login&state=#wechat_redirect" title="微信登录"  target="_blank">-->
+            <!--<img src="__PUBLIC__/images/yes.png" alt="">-->
+        <!--</a>-->
         <p class="nu-miaf">没有账号？&nbsp;&nbsp;<a href="{:U('Home/User/reg')}">免费注册</a></p>
         <p class="nu-miaf nu-miah"><label for=""><!-- 继续登录表明您已充分理解并同意以上内容。 --></label></p>
     </div>

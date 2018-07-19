@@ -111,34 +111,49 @@ class IndexController extends BaseController {
         $Verify->entry($type);
     }
 
+    // 限时秒杀
+//    public function promoteList()
+//    {
+//        $count =  M('flash_sale')->where(time()." >= start_time and ".time()." <= end_time ")->count();// 查询满足要求的总记录数
+//        $Page = new \Think\Page($count,20);// 实例化分页类 传入总记录数和每页显示的记录数
+//        $show = $Page->show();// 分页显示输出
+//        $this->assign('page',$show);// 赋值分页输出
+//        $goodsList = M('flash_sale')->join('ln_goods as g on g.goods_id = ln_flash_sale.goods_id ')->where(time()." >= start_time and ".time()." <= end_time")->limit($Page->firstRow.','.$Page->listRows)->select(); // 找出这个商品
+//        $this->assign('goodsList',$goodsList);
+//        $this->display();
+//    }
+
+
     // 促销活动页面
     public function promoteList()
     {
         //当商品促销结束时，----将商品表中的prom_type修改为0；prom_id修改为0；
-        $condition_overdue['end_time'] = array('lt',time());
-        $promoteList = M('PromGoods')->field('id')->where($condition_overdue)->select();
-        foreach($promoteList as $k => $value){
+        $condition_overdue['end_time'] = array('lt', time());
+        $promoteList = M('flash_sale')->field('id')->where($condition_overdue)->select();
+        foreach ($promoteList as $k => $value) {
             $promo_id = $value['id'];
-            $condition_goods['prom_id'] =  $promo_id;
+            $condition_goods['prom_id'] = $promo_id;
             $update['prom_type'] = 0;
             $update['prom_id'] = 0;
             M('Goods')->where($condition_goods)->save($update);
+//        }
+            $condition['prom_type'] = array('neq', 0);
+            $condition['prom_id'] = array('neq', 0);
+            $condition['b.goods_name'] = array('neq', '');
+            $condition['b.start_time'] = array('lt', time());
+            $condition['b.end_time'] = array('gt', time());
+            $condition['a.is_on_sale'] = array('eq', 1);
+            $condition['a.prom_type'] = array('eq', 1);
+//            $goodsList = M('flash_sale')->select();
+            $goodsList = M('flash_sale')->join('ln_goods as g on g.goods_id = ln_flash_sale.goods_id ')->where(time()." >= start_time and ".time()." <= end_time")->limit($Page->firstRow.','.$Page->listRows)->select(); // 找出这个商品
+            $this->assign('goodsList', $goodsList);
+            $this->display();
         }
-        $condition['prom_type'] = array('neq',0);
-        $condition['prom_id'] = array('neq',0);
-        $condition['b.name'] = array('neq','');
-        $condition['b.start_time'] = array('lt',time());
-        $condition['b.end_time'] = array('gt',time());
-        $condition['a.is_on_sale'] = array('eq',1);
-        $condition['a.prom_type'] = array('eq',3);
-        $goodsList = M('Goods')->alias('a')->field('a.*,b.name promname,b.start_time,b.end_time')
-            ->join('ln_prom_goods  as b on a.prom_id = b.id ','left')
-            ->where($condition)
-            ->order('b.start_time asc')
-            ->select();
-        $this->assign('goodsList',$goodsList);
-        $this->display();
     }
+
+
+
+
 
     function truncate_tables (){
         $model = new \Think\Model(); // 实例化一个model对象 没有对应任何数据表

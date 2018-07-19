@@ -22,7 +22,7 @@ class SystemController extends BaseController{
             'smtp'        =>  '邮件设置',
             'water'       =>  '水印设置',
             'distribut'   =>  '分销设置',
-            //'area_region' =>  '物流设置',
+//            'area_region' =>  '物流设置',
         );
 		$this->assign('group_list',$group_list);
 		$inc_type =  I('get.inc_type','shop_info');

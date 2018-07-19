@@ -115,18 +115,18 @@
                                     <td>{$user.first_lower}</td>    
                                 </tr>
                                 
-                                <tr>
-                                    <td>上二级编号</td>
-                                    <td>                            
-                                        <if condition='$user[second_leader] gt 0'>
-                                                <a href="{:U(detail,array('id'=>$user[second_leader]))}">{$user.second_leader}</a>
-                                        <else />
-                                                {$user.second_leader}
-                                        </if>                           
-                                    </td>
-                                    <td>二级下线数</td>
-                                    <td>{$user.second_lower}</td>                                
-                                </tr>
+                                <!--<tr>-->
+                                    <!--<td>上二级编号</td>-->
+                                    <!--<td>                            -->
+                                        <!--<if condition='$user[second_leader] gt 0'>-->
+                                                <!--<a href="{:U(detail,array('id'=>$user[second_leader]))}">{$user.second_leader}</a>-->
+                                        <!--<else />-->
+                                                <!--{$user.second_leader}-->
+                                        <!--</if>                           -->
+                                    <!--</td>-->
+                                    <!--<td>二级下线数</td>-->
+                                    <!--<td>{$user.second_lower}</td>                                -->
+                                <!--</tr>-->
 
                         </table>
                     </tr>             

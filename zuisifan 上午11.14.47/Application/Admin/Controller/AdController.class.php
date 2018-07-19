@@ -1,5 +1,6 @@
 <?php
 /**
+ * 广告管理
  * Author: xx.com
  * Date: 2015-09-21
  */

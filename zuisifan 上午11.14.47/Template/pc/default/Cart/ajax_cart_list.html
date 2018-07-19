@@ -18,7 +18,7 @@
         <th align="center" valign="middle">数量</th>
         <th align="center" valign="middle">小计（元）</th>
         <th align="center" valign="middle">操作</th>
-      </tr>            
+      </tr>
      <foreach name="cartList" item="v" key="k" >
       <tr>
         <td class="pa-le-9" style="border-right:0" align="center" valign="middle">    
@@ -33,7 +33,7 @@
             <p class="gwc-ys-pp">
             	<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" style="vertical-align:middle">{$v.goods_name}</a>                
                 <!--团购--><if condition="$v[activity_type] eq 2"><img  width="80" height="60" src="/Public/images/groupby2.jpg" style="vertical-align:middle"></if>
-                <!--抢购--><if condition="$v[activity_type] eq 1"><img  width="40" height="40" src="/Public/images/qianggou2.jpg" style="vertical-align:middle"></if>                
+                <!--抢购--><if condition="$v[activity_type] eq 1"><img  width="40" height="40" src="/Public/images/qianggou2.jpg" style="vertical-align:middle"></if>
             </p>
             <p class="ggwc-ys-hs">{$v.spec_key_name}</p>
         </td>

@@ -39,8 +39,8 @@
                                     <td class="col-sm-6">
                          		<input type="radio"  name="condition" value="0" <if condition="$config[condition] eq 0">checked="checked"</if> />
                                         直接成为分销商:
-                                            <!--&nbsp;&nbsp;&nbsp;<input type="radio"  name="condition" value="1" <if condition="$config[condition] eq 1">checked="checked"</if> />   -->
-                                        <!--成功购买商品后成为分销商:-->
+                                            &nbsp;&nbsp;&nbsp;<input type="radio"  name="condition" value="1" <if condition="$config[condition] eq 1">checked="checked"</if> />
+                                        成功购买商品后成为分销商
                                     </td>
                                     <td class="col-sm-7"></td>                                    
                                 </tr>
@@ -80,19 +80,19 @@
                                     </td>
                                     <td class="col-sm-7">%</td>                              
                                 </tr>                                  
-                            	<tr>
-                                    <td>二级分销商名称：</td>
-                                    <td >
-                         				<input type="text" class="form-control" name="second_name" value="{$config.second_name}" >
-                                    </td>
-                                </tr>   
-                                <tr>
-                                    <td>二级分销商比例：</td>
-                                    <td >
-                         				<input type="text" class="form-control" name="second_rate" id="distribut_second_rate" value="{$config.second_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >
-                                    </td>
-                                    <td class="col-sm-7">%</td>                                    
-                                </tr>
+                            	<!--<tr>-->
+                                    <!--<td>二级分销商名称：</td>-->
+                                    <!--<td >-->
+                         				<!--<input type="text" class="form-control" name="second_name" value="{$config.second_name}" >-->
+                                    <!--</td>-->
+                                <!--</tr>   -->
+                                <!--<tr>-->
+                                    <!--<td>二级分销商比例：</td>-->
+                                    <!--<td >-->
+                         				<!--<input type="text" class="form-control" name="second_rate" id="distribut_second_rate" value="{$config.second_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >-->
+                                    <!--</td>-->
+                                    <!--<td class="col-sm-7">%</td>                                    -->
+                                <!--</tr>-->
                             	<tr>
                                     <td>分成时间：</td>
                                     <td >

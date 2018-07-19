@@ -8,6 +8,8 @@ namespace Home\Logic;
 
 use Think\Model\RelationModel;
 use Think\Page;
+use Think\Log;
+
 
 /**
  * 分类逻辑定义
@@ -45,14 +47,14 @@ class UsersLogic extends RelationModel
      * app端登陆
      */
     public function app_login($username,$password){
-       
+        Log::write('--param--'.json_encode($_POST).'--server--'.json_encode($_SERVER),'INFO');
     	$result = array();
         if(!$username || !$password)
            $result= array('status'=>0,'msg'=>'请填写账号或密码');
         $user = M('users')->where("mobile='{$username}' OR email='{$username}'")->find();
         if(!$user){
            $result = array('status'=>-1,'msg'=>'账号不存在!');
-        }elseif($password != $user['password']){
+        }elseif(encrypt($password) != $user['password']){
             //前端加密
            $result = array('status'=>-2,'msg'=>'密码错误!');
         }elseif($user['is_lock'] == 1){

@@ -1,0 +1,112 @@
+<include file="Public/min-header" />
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content ">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回收获地址列表"><i class="fa fa-reply"></i></a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> 编辑收获地址</h3>
+                </div>
+                <div class="panel-body ">
+                    <!--表单数据-->
+                    <form method="post" id="addressEditDo" action="{:U('User/addressEditDo')}">
+                        <!--通用信息-->
+                        <div class="tab-content col-md-10">
+                            <div class="tab-pane active" id="tab_tongyong">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td class="col-sm-2">收货人：</td>
+                                        <td class="col-sm-8">
+                                            <input type="text" class="form-control" name="consignee" value="{$info.consignee}" >
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>联系方式：</td>
+                                        <td >
+                                            <input type="text" class="form-control" name="mobile" value="{$info.mobile}" >
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>邮编：</td>
+                                        <td>
+                                            <input type="text" class="form-control" name="zipcode" value="{$info.zipcode}" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>地址:</td>
+                                        <td>
+                                            <div class="form-group ">
+                                                <div class="col-xs-2">
+                                                    <select onchange="get_city(this)" id="province" name="province" class="form-control">
+                                                        <option  value="0">选择省份</option>
+                                                        <volist name="province" id="vo">
+                                                            <option value="{$vo.id}" >{$vo.name}</option>
+                                                        </volist>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <select onchange="get_area(this)" id="city" name="city" class="form-control">
+                                                        <option value="0">选择城市</option>
+                                                        <volist name="city" id="vo">
+                                                            <option value="{$vo.id}" >{$vo.name}</option>
+                                                        </volist>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <select id="district" name="district" class="form-control">
+                                                        <option value="0">选择区域</option>
+                                                        <volist name="area" id="vo">
+                                                            <option value="{$vo.id}" >{$vo.name}</option>
+                                                        </volist>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-3" style="width: 300px">
+                                                    <input name="address" id="address" value="{$info.address}" class="form-control"   placeholder="详细地址"/>
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <span id="err_address" style="color:#F00; display:none;">请完善收货地址</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td><input type="hidden" name="user_id" value="{$info.user_id}"> </td>
+                                        <td class="text-right"><input class="btn btn-primary" type="button" onclick="adsubmit()" value="保存"></td></tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </form><!--表单数据-->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    function adsubmit(){
+        if($('input[name=consignee]').val() == ''){
+            layer.msg('收货人不能为空！', {icon: 2,time: 1000});   //alert('少年，收货人不能为空！');
+            return false;
+        }
+        if($('input[name=mobile]').val() == ''){
+            layer.msg('联系方式不能为空！', {icon: 2,time: 1000});//alert('少年，联系方式不能为空！');
+            return false;
+        }
+        if($('input[name=address]').val() == '' ){
+            layer.msg('详细地址不能为空！', {icon: 2,time: 1000});//alert('少年，详细地址不能为空！');
+            return false;
+        }
+        $('#addressEditDo').submit();
+    }
+</script>
+</body>
+</html>
